@@ -51,7 +51,6 @@ func main() {
 	// Read scenarios from playbook
 	gossFetchedScenarios := gossFetchScenarioFromPlaybook(gossPlaybookFilePath)
 
-	// Exec
 	gossRun(gossBinPath, gossVarMergeFile, gossScenarioRootPath, gossFetchedScenarios)
 }
 
@@ -61,11 +60,9 @@ func gossFetchHostname() (string, error) {
 }
 
 func gossMergeVarFiles(gossVarPath string, gossMergeFile *os.File) {
-	// Check directory exists
-	if _, err := os.Stat(gossVarPath); err != nil {
-		if os.IsNotExist(err) {
-			log.Fatal(err)
-		}
+	// Check if directory exists
+	if _, err := os.Stat(gossVarPath); os.IsNotExist(err) {
+		return
 	}
 
 	gossVarFiles, err := os.ReadDir(gossVarPath)
