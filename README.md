@@ -1,7 +1,31 @@
 # goss-runner
-## How to use goss-runner.sh
+A thin wrapper for goss. Directory structure is based on ansible best practices.
+## Directory structure
+goss-runner includes main.yaml under the scenario directory.
+```
+.
+├── bin
+│   └── goss                         // put goss binary (download from https://github.com/goss-org/goss)
+├── goss-runner
+├── playbooks                         // Write a list of test scenarios to run for each host
+│   └── <hostname>.yaml
+├── scenarios
+│   └── ssh                          // describe test scenario name
+│       ├── ssh.yaml                       // describe the test content
+│       └── main.yaml                      // include the scenario you have created
+└── vars                              // describe variables for scenario
+    ├── all                                 // Describes variables for commonly loaded scenarios
+    │   └── commonVariables.yaml
+    └── <hostname>                          // Describes variables to be loaded scenarios by host
+        └── hostVariables.yaml
+```
+## How to build
 ```sh
-./goss-runner.sh
+go build
+```
+## How to use goss-runner
+```sh
+./goss-runner
 ```
 ```
 PLAY [SampleHost]
@@ -17,25 +41,6 @@ SCENARIO [ntp.yaml]
 ok 1 - File: /etc/chrony.conf: exists: matches expectation: true
 ok 2 - File: /etc/chrony.conf: filetype: matches expectation: "file"
 ```
- 
 ## How to write scenario
 Read [official documentations](https://github.com/goss-org/goss/blob/master/docs/gossfile.md).
  
-## Directory structure
-Minimum configuration
-```
-.
-├── bin
-│   └── goss                         // put goss binary (download from https://github.com/goss-org/goss)
-├── goss-runner.sh
-├── scenarios                         // describe test scenarios
-│   ├── common                           // Describe commonly executed test scenarios
-│   │   └── commonExamples01.yaml
-│   └── <hostname>                       // Describes test scenarios to be executed by host
-│       └── hostExamples01.yaml
-└── vars                              // describe variables for scenario
-    ├── common                            // Describes variables for commonly loaded scenarios
-    │   └── commonVariables.yaml
-    └── <hostname>                        // Describes variables to be loaded scenarios by host
-        └── hostVariables.yaml
-```
