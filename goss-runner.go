@@ -64,7 +64,7 @@ func gossMergeVarFiles(gossVarPath string, gossMergeFile *os.File) {
 	// Check directory exists
 	if _, err := os.Stat(gossVarPath); err != nil {
 		if os.IsNotExist(err) {
-			return
+			log.Fatal(err)
 		}
 	}
 
@@ -88,7 +88,6 @@ func gossMergeVarFiles(gossVarPath string, gossMergeFile *os.File) {
 		gossOpenedMergeFile.Write(contents)
 		gossOpenedMergeFile.WriteString("\n")
 	}
-	return
 }
 
 func gossFetchScenarioFromPlaybook(gossPlaybookFilePath string) []string {
