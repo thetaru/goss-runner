@@ -30,7 +30,7 @@ func main() {
 	// Goss variables path
 	gossVarRootPath := "./vars"
 	gossVarHostPath := gossVarRootPath + "/" + gossHostname
-	gossVarCommonPath := gossVarRootPath + "/common"
+	gossVarCommonPath := gossVarRootPath + "/all"
 	gossVarMergeFile, err := os.CreateTemp(os.TempDir(), "goss-")
 	if err != nil {
 		log.Fatal(err)
